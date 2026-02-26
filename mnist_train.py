@@ -7,25 +7,21 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from utils import (
-    get_mnist_datasets,
-    partition_data_non_IID_dirichlet_equal_exact,
     make_model,
     seed_everything,
     params_to_vec,
     vector_to_params_,
-    gen_mask_indices,
-    compress_with_mask,
-    decompress_and_scale,
-    craft_byzantine_packets,
-    reconstruct_tilde_from_packets,
-    aggregate_trimmed_mean,
     evaluate,
-    Compute_best_b_vector,
-    _honest_stats,
-    MomentumBank,
-    GradBank,    LocalClient,
-    DashaPageClient,
     save)
+from compressor import compress_with_mask, decompress_and_scale
+from clients_code import LocalClient, DashaPageClient
+from byzantine_crafting import craft_byzantine_packets, Compute_best_b_vector, _honest_stats
+from compressor import reconstruct_tilde_from_packets
+from aggregator import aggregate_trimmed_mean
+from datasets import get_mnist_datasets, partition_data_non_IID_dirichlet_equal_exact, gen_mask_indices
+from momentum_bank import MomentumBank, GradBank
+
+
 
 
 DATASET="MNIST" 
