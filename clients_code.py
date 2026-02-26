@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Subset
 from typing import Callable
-from .utils import assign_flat_grad_, compress_with_mask, decompress_and_scale, vector_to_params_, params_to_vec
-from torchvision import datasets, transforms
+from utils import assign_flat_grad_, vector_to_params_, params_to_vec
+from compressor import compress_with_mask, decompress_and_scale
 
 # ---- Honest client (gradient-only; no local updates) ----
 class LocalClient:

@@ -2,7 +2,7 @@
 import torch
 import torch.nn as nn
 from pathlib import Path
-from .architectures import make_resnet18_cifar10, LightNet2
+from architectures import make_resnet18_cifar10, LightNet2
 from torch.utils.data import DataLoader
 from typing import List
 
