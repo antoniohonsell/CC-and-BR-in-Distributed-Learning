@@ -1,7 +1,7 @@
 import torch
 from typing import List, Optional
-from utils import _honest_stats, _aggregate, compute_BMasks, get_BVectors, compress_with_mask, decompress_and_scale
-
+from compressor import compress_with_mask, decompress_and_scale
+from aggregator import _aggregate
 
 # ================== BYZANTINE CRAFTING  ==================
 
@@ -15,25 +15,6 @@ def _honest_stats(H_vectors: List[torch.Tensor]) -> tuple[torch.Tensor, torch.Te
     var = H.var(dim=0, unbiased=False) + 1e-12  # eps for numerical stability
     return avg, var
 
-# ---- simple robust aggregators to evaluate attack impact ----
-def _aggregate(all_vectors: List[torch.Tensor], defense: str = "trimmed", trim_k: int = 0) -> torch.Tensor:
-    """
-    defense in {"mean", "median", "trimmed"}.
-    For "trimmed", trim_k is the number of vectors to trim from each tail (per coordinate).
-    """
-    X = torch.stack(all_vectors, dim=0)  # [n, d]
-    if defense == "mean":
-        return X.mean(dim=0)
-    elif defense == "median":
-        return X.median(dim=0).values
-    elif defense == "trimmed":
-        # coordinate-wise sort then trim
-        n = X.shape[0]
-        k = max(0, min(trim_k, (n - 1) // 2))
-        X_sorted, _ = torch.sort(X, dim=0)
-        return X_sorted[k:n - k, :].mean(dim=0)
-    else:
-        raise ValueError(f"Unknown defense: {defense}")
 
 # ---- choose coordinates to attack  ----
 def compute_BMasks(
@@ -223,11 +204,3 @@ def craft_byzantine_packets(
         byz_packets.append(compress_with_mask(b_vec, mask_idx))
     return byz_packets, byz_full
 
-# --- aggregation with trimmed mean ---
-def aggregate_trimmed_mean(vectors: List[torch.Tensor], trim_k: int) -> torch.Tensor:
-    n = len(vectors)
-    if n == 0:
-        raise ValueError("No vectors to aggregate.")
-    
-    trim_k = min(trim_k, (n - 1) // 2)
-    return _aggregate(vectors, defense="trimmed", trim_k=trim_k)  

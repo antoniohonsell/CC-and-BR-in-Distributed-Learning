@@ -5,15 +5,16 @@ import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-from utils import make_model, seed_everything, save, params_to_vec, vector_to_params_, evaluate, aggregate_trimmed_mean, reconstruct_tilde_from_packets
-from byzantine_crafting import compute_BMasks, get_BVectors, compress_with_mask, decompress_and_scale, _honest_stats, _aggregate, Compute_best_b_vector, craft_byzantine_packets
-from architectures import MomentumBank, GradBank
+from torchvision import datasets
+from compressor import reconstruct_tilde_from_packets
+from utils import make_model, seed_everything, save, params_to_vec, vector_to_params_, evaluate
+from byzantine_crafting import compress_with_mask, decompress_and_scale, _honest_stats, Compute_best_b_vector, craft_byzantine_packets
+from aggregator import aggregate_trimmed_mean
+from momentum_bank import MomentumBank, GradBank
 from clients_code import LocalClient, DashaPageClient
 from datasets import get_cifar10_datasets, make_plain_transform, partition_data_non_IID_dirichlet_equal_exact, recompute_bn_stats, gen_mask_indices
-from typing import List, Tuple
+from typing import List
 from dataclasses import dataclass
-from collections import defaultdict
 
 
 DATASET="CIFAR-10" 

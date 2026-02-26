@@ -48,6 +48,17 @@ def vector_to_params_(vec: torch.Tensor, model: nn.Module) -> None:
         p.data.copy_(vec[offset:offset + n].view_as(p))
         offset += n
 
+def assign_flat_grad_(model: nn.Module, grad_vec: torch.Tensor) -> None:
+    """Write a flat gradient vector into model.parameters().grad in-place."""
+    offset = 0
+    for p in model.parameters():
+        n = p.numel()
+        g = grad_vec[offset:offset + n].view_as(p)
+        if p.grad is None:
+            p.grad = torch.zeros_like(p)
+        p.grad.copy_(g)
+        offset += n
+
 
 # Evalutation function.
 @torch.no_grad()
@@ -65,20 +76,3 @@ def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> tupl
         total   += x.size(0)
     return loss_sum / float(total), correct / float(total)
 
-
-def reconstruct_tilde_from_packets(packets: List[dict], d: int, k: int, device: torch.device) -> List[torch.Tensor]:
-    """
-    Applies step (4) to a list of packets and returns a list of \tilde{g}_i tensors.
-    """
-    return [decompress_and_scale(pkt, d=d, k=k, device=device) for pkt in packets]
-
-def decompress_and_scale(packet: dict, d: int, k: int, device=None) -> torch.Tensor:
-    """
-    Reconstructs \tilde{g} = (d/k) * (g ⊙ mask) from C_k(g).
-    """
-    idx = packet["idx"]
-    vals = packet["values"]
-    device = device or vals.device
-    out = torch.zeros(d, device=device, dtype=vals.dtype)
-    out[idx] = vals
-    return (d / float(k)) * out
