@@ -1,5 +1,5 @@
 import torch
-from typing import List, Optional
+from typing import List
 import torch.nn as nn
 
 
@@ -39,15 +39,3 @@ class GradBank:
 
     def all_g(self) -> List[torch.Tensor]:
         return self._g
-    
-# The following is used for Dasha algorithm         
-def assign_flat_grad_(model: nn.Module, grad_vec: torch.Tensor) -> None:
-    """Write a flat gradient vector into model.parameters().grad in-place."""
-    offset = 0
-    for p in model.parameters():
-        n = p.numel()
-        g = grad_vec[offset:offset + n].view_as(p)
-        if p.grad is None:
-            p.grad = torch.zeros_like(p)
-        p.grad.copy_(g)
-        offset += n

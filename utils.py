@@ -59,7 +59,6 @@ def assign_flat_grad_(model: nn.Module, grad_vec: torch.Tensor) -> None:
         p.grad.copy_(g)
         offset += n
 
-
 # Evalutation function.
 @torch.no_grad()
 def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> tuple[float, float]:
