@@ -1,3 +1,5 @@
 plotting/
 old_ReADME.md
 .vscode/
+.DS_Store
+src/.DS_Store
