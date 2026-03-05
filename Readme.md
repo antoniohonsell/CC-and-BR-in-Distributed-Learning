@@ -39,9 +39,6 @@ At a high level, the training loop is:
 5. **Server** updates the global model; evaluation is run periodically; results are logged and saved.
 
 
-### Quickstart
-
-The easiest way to run the baselines is via the provided scripts, which run **both algorithms** with “standard” hyperparameters and set `PYTHONPATH` automatically:
 
 ## Requirements
 
@@ -56,7 +53,7 @@ Optional:
 
 We support two ways to run the code.
 
-### A) Quickstart (recommended): run via the provided scripts
+### Quickstart 
 
 ```bash
 python -m pip install --upgrade pip
