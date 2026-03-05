@@ -2,4 +2,12 @@ plotting/
 old_ReADME.md
 .vscode/
 .DS_Store
-src/.DS_Store
+*/.DS_Store
+__pycache__/
+*.pyc
+data/
+outputs/
+train/
+test/
+*.pkl
+.vscode/
