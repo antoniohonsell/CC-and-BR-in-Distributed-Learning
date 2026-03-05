@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ccbr-dl"
+version = "0.1.0"
+description = "CC and BR in Distributed Learning (research code)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.23",
+  "torch",
+  "torchvision",
+]
+
+[project.scripts]
+ccbr-mnist = "ccbr.train.mnist:main"
+ccbr-cifar10 = "ccbr.train.cifar10:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]

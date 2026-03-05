@@ -14,7 +14,7 @@ from utils import (
     evaluate,
     save)
 from compressor import compress_with_mask, decompress_and_scale
-from clients_code import LocalClient, DashaPageClient
+from clients import LocalClient, DashaPageClient
 from byzantine_crafting import craft_byzantine_packets, Compute_best_b_vector, _honest_stats
 from compressor import reconstruct_tilde_from_packets
 from aggregator import aggregate_trimmed_mean

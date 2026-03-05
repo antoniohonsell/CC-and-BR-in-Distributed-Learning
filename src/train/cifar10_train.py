@@ -11,7 +11,7 @@ from utils import make_model, seed_everything, save, params_to_vec, vector_to_pa
 from byzantine_crafting import _honest_stats, Compute_best_b_vector, craft_byzantine_packets
 from aggregator import aggregate_trimmed_mean
 from momentum_bank import MomentumBank, GradBank
-from clients_code import LocalClient, DashaPageClient
+from clients import LocalClient, DashaPageClient
 from datasets import get_cifar10_datasets, make_plain_transform, partition_data_non_IID_dirichlet_equal_exact, recompute_bn_stats, gen_mask_indices
 from typing import List
 from dataclasses import dataclass
