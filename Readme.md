@@ -5,8 +5,6 @@ This repo supports the paper:
 
 ## Overview
 
-## Overview
-
 This repository contains a minimal research implementation to study the interaction between:
 
 - **communication compression** (Rand-k sparsification with unbiased scaling), and  
