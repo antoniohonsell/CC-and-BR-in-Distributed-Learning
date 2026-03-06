@@ -5,7 +5,7 @@ This repo supports the paper:
 
 ## Overview
 
-This repository contains a minimal research implementation to study the interaction between:
+This repository contains a research implementation to study the interaction between:
 
 - **communication compression** (Rand-k sparsification with unbiased scaling), and  
 - **Byzantine robustness** (coordinate-wise trimmed-mean aggregation + adversarial gradient/delta crafting)
@@ -43,13 +43,8 @@ At a high level, the training loop is:
 - Python ≥ 3.10
 - PyTorch (`torch`) + `torchvision`
 - `numpy`
+- `matplotlib`
 
-Optional:
-- `matplotlib` (only for plotting utilities / legacy scripts)
-
-## Installation
-
-We support two ways to run the code.
 
 ### Quickstart 
 
